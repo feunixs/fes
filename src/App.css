@@ -1,0 +1,54 @@
+/* Page transition styles */
+.page-transition {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: opacity 300ms ease;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+/* Parallax transition styles */
+.parallax-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.transitioning {
+  pointer-events: none;
+}
+
+/* Perbaikan kontras warna untuk navigasi sidebar dan teks lainnya */
+.sidebar-item, 
+.text-sidebar-foreground,
+[class*="text-sidebar-foreground"],
+[class*="text-muted-foreground"],
+.text-gray-500 {
+  color: #333 !important;
+  font-weight: 500;
+}
+
+/* Memperkuat kontras pada menu item */
+.master-data a, .transaction a, .report a, .user-access a, .purchased a, .settings a {
+  color: #333 !important;
+  font-weight: 500;
+}
+
+/* Specific transition for login to dashboard */
+.login-to-dashboard-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+}

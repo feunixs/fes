@@ -1,0 +1,247 @@
+/* Enhanced UI Components Style */
+
+/* Improved Card Styling */
+.enhanced-card {
+  @apply border rounded-lg border-border bg-card p-6 relative overflow-hidden transition-all duration-200;
+  background-image: linear-gradient(145deg, hsl(var(--card)), hsl(215, 25%, 98%));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.enhanced-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+}
+
+/* Enhanced Buttons */
+.btn-primary {
+  @apply bg-primary text-primary-foreground font-medium px-5 py-2.5 rounded-md;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  @apply bg-primary/90;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.8s;
+}
+
+.btn-primary:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-secondary-foreground font-medium px-5 py-2.5 rounded-md;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  @apply bg-secondary/80;
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  @apply bg-accent text-accent-foreground font-medium px-5 py-2.5 rounded-md;
+  transition: all 0.2s ease;
+}
+
+.btn-accent:hover {
+  @apply bg-accent/90;
+  transform: translateY(-1px);
+}
+
+/* Enhanced Form Inputs */
+.form-field {
+  @apply mb-6;
+}
+
+.form-label {
+  @apply block mb-2 font-medium text-foreground;
+}
+
+.form-input {
+  @apply w-full px-3 py-2.5 border border-input rounded-md bg-background;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+  @apply outline-none ring-2 ring-primary/20 border-primary/50;
+}
+
+/* Enhanced Tables */
+.enhanced-card {
+  @apply bg-card rounded-lg border border-border p-4 shadow-sm transition-all duration-300;
+}
+
+.enhanced-card:hover {
+  @apply shadow-md -translate-y-0.5;
+}
+
+/* Format mata uang Rupiah */
+.rupiah-value {
+  @apply font-medium;
+}
+
+.rupiah-unit {
+  @apply text-muted-foreground text-xs ml-1;
+}
+
+/* Tabel yang lebih modern */
+.enhanced-table {
+  @apply w-full border border-border rounded-lg overflow-hidden shadow-sm;
+}
+
+.enhanced-table thead {
+  @apply bg-muted/50;
+}
+
+.enhanced-table th {
+  @apply px-6 py-4 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider;
+}
+
+.enhanced-table tbody {
+  @apply bg-card divide-y divide-border;
+}
+
+.enhanced-table tr {
+  @apply hover:bg-muted/30 transition-all duration-200 cursor-pointer;
+}
+
+.enhanced-table td {
+  @apply px-6 py-4 whitespace-nowrap text-sm;
+}
+
+/* Badge status untuk tabel */
+.table-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.table-badge-success {
+  @apply bg-success/20 text-success-foreground;
+}
+
+.table-badge-warning {
+  @apply bg-warning/20 text-warning-foreground;
+}
+
+.table-badge-info {
+  @apply bg-info/20 text-info-foreground;
+}
+
+.table-badge-destructive {
+  @apply bg-destructive/20 text-destructive-foreground;
+}
+
+/* Enhanced Navigation */
+.nav-item {
+  @apply flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-all duration-200;
+}
+
+.nav-item-active {
+  @apply bg-sidebar-accent text-sidebar-accent-foreground;
+}
+
+.nav-item-inactive {
+  @apply text-sidebar-foreground hover:bg-sidebar-accent/20;
+}
+
+/* Stats Card */
+.stats-card {
+  @apply enhanced-card flex flex-col h-full;
+}
+
+.stats-card-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.stats-card-title {
+  @apply text-sm font-medium text-muted-foreground;
+}
+
+.stats-card-icon {
+  @apply p-2 rounded-full bg-primary/10 text-primary;
+}
+
+.stats-card-value {
+  @apply text-2xl font-semibold;
+}
+
+.stats-card-trend {
+  @apply ml-2 flex items-center text-sm;
+}
+
+.stats-card-trend-positive {
+  @apply text-success;
+}
+
+.stats-card-trend-negative {
+  @apply text-destructive;
+}
+
+.stats-card-progress {
+  @apply h-1 w-full bg-muted mt-4 rounded-full overflow-hidden;
+}
+
+.stats-card-progress-bar {
+  @apply h-full bg-primary rounded-full;
+}
+
+/* Skeleton Loaders */
+.skeleton {
+  @apply animate-pulse bg-muted rounded;
+}
+
+/* Transitions and Animations */
+.fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dashboard layout */
+.dashboard-layout {
+  @apply grid gap-6;
+  grid-template-columns: minmax(250px, 1fr) 4fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.content-container {
+  @apply max-w-7xl mx-auto p-6;
+}

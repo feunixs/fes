@@ -1,0 +1,207 @@
+/* Tailwind CSS directives - ignore linter warnings */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom animations */
+@import './components/ui/animations.css';
+
+@layer base {
+  :root {
+    /* Font families */
+    --font-heading: 'DM Serif Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Elegant warm background and text colors */
+    --background: 220 25% 97%;
+    --foreground: 225 25% 20%;
+
+    /* Card styling with gradient effect */
+    --card: 0 0% 100%;
+    --card-foreground: 225 25% 20%;
+    --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+    /* Popover styling */
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 25% 20%;
+
+    /* Rich navy blue as primary color - slightly adjusted for more elegance */
+    --primary: 215 65% 23%;
+    --primary-foreground: 210 40% 98%;
+    
+    /* Success color for positive trends and indicators */
+    --success: 145 55% 35%;
+    --success-foreground: 210 40% 98%;
+    
+    /* Warning color for alerts and cautions */
+    --warning: 40 95% 50%;
+    --warning-foreground: 20 10% 15%;
+    
+    /* Info color for notifications and help */
+    --info: 200 75% 45%;
+    --info-foreground: 210 40% 98%;
+    
+    /* New teal accent color for visual interest */
+    --accent: 175 65% 40%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Soft complementary secondary color */
+    --secondary: 210 20% 93%;
+    --secondary-foreground: 215 50% 23%;
+
+    /* Refined muted colors with improved contrast */
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 30% 25%;
+
+    /* Elegant accent color */
+    --accent: 215 55% 90%;
+    --accent-foreground: 215 60% 25%;
+
+    /* Balanced destructive color */
+    --destructive: 0 75% 42%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Refined border and input colors */
+    --border: 215 20% 85%;
+    --input: 215 20% 85%;
+    --ring: 215 60% 25%;
+
+    /* Subtle rounded corners */
+    --radius: 0.5rem;
+
+    /* Sophisticated sidebar */
+    --sidebar-background: 215 30% 25%;
+    --sidebar-foreground: 210 15% 90%;
+    --sidebar-primary: 215 25% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 215 25% 35%;
+    --sidebar-accent-foreground: 210 15% 90%;
+    --sidebar-border: 215 30% 30%;
+    --sidebar-ring: 215 60% 45%;
+
+    /* Balanced feedback colors */
+    --success: 150 60% 40%;
+    --success-foreground: 210 40% 98%;
+
+    /* Warm warning color */
+    --warning: 40 80% 45%;
+    --warning-foreground: 210 40% 98%;
+
+    /* Cool info color */
+    --info: 200 75% 45%;
+    --info-foreground: 210 40% 98%;
+  }
+
+  .dark {
+    /* Sophisticated dark background and text colors */
+    --background: 215 35% 12%;
+    --foreground: 210 20% 90%;
+
+    /* Refined card styling */
+    --card: 215 30% 16%;
+    --card-foreground: 210 20% 90%;
+
+    /* Consistent popover styling */
+    --popover: 215 30% 16%;
+    --popover-foreground: 210 20% 90%;
+
+    /* Rich complementary primary color */
+    --primary: 215 60% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Elegant secondary color */
+    --secondary: 215 40% 22%;
+    --secondary-foreground: 210 30% 90%;
+
+    /* Balanced muted colors */
+    --muted: 215 30% 20%;
+    --muted-foreground: 215 15% 65%;
+
+    /* Subtle accent color */
+    --accent: 215 40% 25%;
+    --accent-foreground: 210 20% 90%;
+
+    /* Visible but not harsh destructive color */
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Consistent border and input colors */
+    --border: 215 35% 25%;
+    --input: 215 35% 25%;
+    --ring: 215 60% 50%;
+
+    /* Refined sidebar for dark mode with improved contrast */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 225 25% 25%;
+    --sidebar-accent: 210 100% 95%;
+    --sidebar-accent-foreground: 210 100% 30%;
+    --sidebar-border: 220 20% 90%;
+    --sidebar-ring: 215 60% 45%;
+
+    /* Refined success color for dark mode */
+    --success: 150 55% 40%;
+    --success-foreground: 210 40% 98%;
+
+    /* Warm warning color for dark mode */
+    --warning: 40 70% 45%;
+    --warning-foreground: 210 40% 98%;
+
+    /* Cool info color for dark mode */
+    --info: 200 70% 45%;
+    --info-foreground: 210 40% 98%;
+  }
+}
+
+/* Base layer styles with Tailwind utilities */
+@layer base {
+  * {
+    /* Apply Tailwind border utility */
+    @apply border-border;
+  }
+
+  body {
+    /* Apply Tailwind background and text utilities */
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    letter-spacing: -0.01em;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  
+  p, span, input, button, textarea, select, li {
+    font-family: var(--font-body);
+  }
+  
+  h1 { @apply text-4xl font-semibold; }
+  h2 { @apply text-3xl font-semibold; }
+  h3 { @apply text-2xl font-semibold; }
+  h4 { @apply text-xl font-medium; }
+  h5 { @apply text-lg font-medium; }
+  h6 { @apply text-base font-medium; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

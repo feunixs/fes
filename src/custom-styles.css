@@ -1,0 +1,57 @@
+/* File ini dibuat untuk memperbaiki kontras warna dan styling dashboard */
+
+/* Memperbaiki warna teks pada menu sidebar */
+.master-data span,
+.purchased span,
+.transaction span,
+.report span,
+.user-access span,
+.settings span,
+[class*="text-sidebar-foreground"],
+[class*="text-muted-foreground"],
+.sidebar-item span {
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+
+/* Memperbaiki warna teks pada subitem menu */
+.sidebar-item a,
+.sidebar-item button,
+.sidebar-item div {
+  color: #333 !important;
+}
+
+/* Memperkuat warna hover pada item menu */
+.sidebar-item a:hover,
+.sidebar-item button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #000 !important;
+}
+
+/* Override untuk format mata uang Indonesia */
+.currency-display {
+  font-weight: 600;
+}
+
+/* Memperbaiki kontras pada aktivitas terbaru */
+.activity-item {
+  color: #333 !important;
+}
+
+/* Memperkuat kontras pada judul card */
+.card-title {
+  color: #333 !important;
+  font-weight: 600 !important;
+}
+
+/* Memperbaiki kontras pada Menu Cepat */
+.menu-cepat button {
+  color: #333 !important;
+}
+
+/* Memastikan format mata uang Rupiah selalu sesuai standar Indonesia */
+/* Menggunakan 'Rp' sebagai simbol dan satuan lokal: ribu, juta, miliar, triliun */
+.currency-display {
+  font-weight: 600 !important;
+  color: #333 !important;
+}
