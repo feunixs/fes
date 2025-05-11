@@ -18,10 +18,7 @@ import NotFound from "./pages/NotFound";
 // React Query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// Styles
-import './App.css';
-import './custom-styles.css';
-import "./components/ui/parallax-transition.css";
+// Styles are now consolidated in main.css and imported in main.tsx
 
 const queryClient = new QueryClient();
 

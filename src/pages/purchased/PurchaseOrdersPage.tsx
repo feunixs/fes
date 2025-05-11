@@ -4,6 +4,9 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import DataTable from "@/components/ui/data-table/DataTable";
 import ActionButtons from "@/components/ui/action-buttons/ActionButtons";
 import { useToast } from "@/components/ui/use-toast";
+import { PurchaseOrder, PurchaseOrderItem, Supplier, Item } from "@/types/models";
+import { formatCurrency, formatDate, getCurrentDate } from "@/lib/formatters";
+import { validateForm, validationSchemas } from "@/lib/validators";
 import {
   Dialog,
   DialogContent,
@@ -29,23 +32,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, Trash } from "lucide-react";
-import { format } from "date-fns";
-
-// Fungsi untuk format mata uang ke standar Indonesia (singkat)
-const formatCurrency = (value: number) => {
-  if (value >= 1000000000) {
-    return `Rp ${(value / 1000000000).toFixed(1).replace(".", ",")} M`;
-  } else if (value >= 1000000) {
-    return `Rp ${(value / 1000000).toFixed(1).replace(".", ",")} jt`;
-  } else if (value >= 1000) {
-    return `Rp ${(value / 1000).toFixed(1).replace(".", ",")} rb`;
-  } else {
-    return `Rp ${value.toLocaleString().replace(".", ",")}`;
-  }
-};
 
 // Mock data
-const mockPurchaseOrders = [
+const mockPurchaseOrders: PurchaseOrder[] = [
   {
     id: "PO-2023-001",
     date: "2023-05-10",
@@ -53,6 +42,7 @@ const mockPurchaseOrders = [
     totalItems: 5,
     totalAmount: 12500000,
     status: "Pending",
+    items: [],
   },
   {
     id: "PO-2023-002",
@@ -61,6 +51,7 @@ const mockPurchaseOrders = [
     totalItems: 3,
     totalAmount: 8750000,
     status: "Approved",
+    items: [],
   },
   {
     id: "PO-2023-003",
@@ -69,6 +60,7 @@ const mockPurchaseOrders = [
     totalItems: 8,
     totalAmount: 15200000,
     status: "Delivered",
+    items: [],
   },
   {
     id: "PO-2023-004",
@@ -77,6 +69,7 @@ const mockPurchaseOrders = [
     totalItems: 2,
     totalAmount: 4300000,
     status: "Completed",
+    items: [],
   },
   {
     id: "PO-2023-005",
@@ -85,18 +78,19 @@ const mockPurchaseOrders = [
     totalItems: 6,
     totalAmount: 9800000,
     status: "Cancelled",
+    items: [],
   },
 ];
 
-const mockSuppliers = [
-  { id: 1, name: "PT. Steel Supplies" },
-  { id: 2, name: "CV. Metal Works" },
-  { id: 3, name: "PT. Hardware Solution" },
-  { id: 4, name: "PT. Tools & Equipment" },
-  { id: 5, name: "CV. Industrial Supply" },
+const mockSuppliers: Supplier[] = [
+  { id: 1, name: "PT. Steel Supplies", address: "Jl. Baja No.1", phoneNumber: "021-1234567", email: "steel@supplies.com", contactPerson: "Budi", status: "Active" },
+  { id: 2, name: "CV. Metal Works", address: "Jl. Besi No.2", phoneNumber: "021-2345678", email: "metal@works.com", contactPerson: "Andi", status: "Active" },
+  { id: 3, name: "PT. Hardware Solution", address: "Jl. Perkakas No.3", phoneNumber: "021-3456789", email: "hardware@solution.com", contactPerson: "Siti", status: "Active" },
+  { id: 4, name: "PT. Tools & Equipment", address: "Jl. Alat No.4", phoneNumber: "021-4567890", email: "tools@equipment.com", contactPerson: "Rina", status: "Active" },
+  { id: 5, name: "CV. Industrial Supply", address: "Jl. Industri No.5", phoneNumber: "021-5678901", email: "industrial@supply.com", contactPerson: "Dewi", status: "Active" },
 ];
 
-const mockItems = [
+const mockItems: Item[] = [
   { id: 1, name: "Steel Pipe 2 inch", unit: "Meter", price: 120000 },
   { id: 2, name: "Aluminum Sheet 1mm", unit: "Sheet", price: 350000 },
   { id: 3, name: "Bolt 10mm", unit: "Box", price: 45000 },
@@ -110,7 +104,7 @@ const columns = [
   {
     header: "Date",
     accessorKey: "date",
-    cell: (value: string) => format(new Date(value), "dd/MM/yyyy"),
+    cell: (value: string) => formatDate(value, "dd/MM/yyyy"),
   },
   { header: "Supplier", accessorKey: "supplier" },
   { header: "Items", accessorKey: "totalItems" },
@@ -144,26 +138,27 @@ const columns = [
   },
 ];
 
+interface POFormData {
+  supplier: string;
+  date: string;
+  notes: string;
+}
+
 const PurchaseOrdersPage = () => {
   const { toast } = useToast();
-  const [purchaseOrders, setPurchaseOrders] = useState(mockPurchaseOrders);
+  const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>(mockPurchaseOrders);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [poForm, setPOForm] = useState({
+  const [poForm, setPOForm] = useState<POFormData>({
     supplier: "",
-    date: format(new Date(), "yyyy-MM-dd"),
+    date: getCurrentDate(),
     notes: "",
   });
-  const [poItems, setPOItems] = useState<Array<{
-    itemId: string;
-    name: string;
-    quantity: number;
-    price: number;
-  }>>([]);
+  const [poItems, setPOItems] = useState<PurchaseOrderItem[]>([]);
   
   const handleAddNew = () => {
     setPOForm({
       supplier: "",
-      date: format(new Date(), "yyyy-MM-dd"),
+      date: getCurrentDate(),
       notes: "",
     });
     setPOItems([]);
@@ -172,7 +167,7 @@ const PurchaseOrdersPage = () => {
   
   const handlePOFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  ): void => {
     const { name, value } = e.target;
     setPOForm({ ...poForm, [name]: value });
   };
@@ -196,7 +191,7 @@ const PurchaseOrdersPage = () => {
     index: number,
     field: string,
     value: string | number
-  ) => {
+  ): void => {
     const updatedItems = [...poItems];
     
     if (field === "itemId" && typeof value === "string") {
@@ -210,34 +205,39 @@ const PurchaseOrdersPage = () => {
         };
       }
     } else {
-      // @ts-ignore
       updatedItems[index][field] = value;
     }
     
     setPOItems(updatedItems);
   };
   
-  const calculateTotal = () => {
-    return poItems.reduce(
-      (total, item) => total + item.price * (item.quantity || 0),
-      0
-    );
+  const calculateTotal = (): number => {
+    return poItems.reduce((total, item) => {
+      return total + (item.quantity || 0) * (item.price || 0);
+    }, 0);
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!poForm.supplier || poItems.length === 0) {
+  const handleSubmit = (): void => {
+    // Validate form data
+    if (!poForm.supplier) {
       toast({
         title: "Validation Error",
-        description:
-          "Please select a supplier and add at least one item to the purchase order.",
+        description: "Please select a supplier",
         variant: "destructive",
       });
       return;
     }
     
-    // Check if all items have valid data
+    if (poItems.length === 0) {
+      toast({
+        title: "Validation Error",
+        description: "Please add at least one item",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate that all items have valid quantities
     const invalidItems = poItems.some(
       (item) => !item.itemId || !item.quantity || item.quantity <= 0
     );
@@ -245,46 +245,51 @@ const PurchaseOrdersPage = () => {
     if (invalidItems) {
       toast({
         title: "Validation Error",
-        description:
-          "Please ensure all items are properly selected and have valid quantities.",
+        description: "Please ensure all items have valid quantities and are properly selected.",
         variant: "destructive",
       });
       return;
     }
     
-    // Create new PO
-    const newPO = {
-      id: `PO-${new Date().getFullYear()}-${String(purchaseOrders.length + 1).padStart(3, "0")}`,
-      date: poForm.date,
-      supplier: mockSuppliers.find((s) => s.id.toString() === poForm.supplier)?.name || "",
-      totalItems: poItems.length,
-      totalAmount: calculateTotal(),
-      status: "Pending",
-    };
-    
-    // Update state
-    setPurchaseOrders([...purchaseOrders, newPO]);
-    
-    // Close dialog and show toast
-    setIsFormOpen(false);
-    toast({
-      title: "Purchase Order Created",
-      description: `Purchase Order ${newPO.id} has been created successfully.`,
-    });
+    // Simulate API call
+    setTimeout(() => {
+      // Generate a PO number
+      const newPO: PurchaseOrder = {
+        id: `PO-${new Date().getFullYear()}-${String(purchaseOrders.length + 1).padStart(3, "0")}`,
+        date: poForm.date,
+        supplier: mockSuppliers.find((s) => s.id.toString() === poForm.supplier)?.name || "",
+        totalItems: poItems.length,
+        totalAmount: calculateTotal(),
+        status: "Pending",
+        items: poItems,
+      };
+      
+      // Update state
+      setPurchaseOrders([...purchaseOrders, newPO]);
+      
+      // Close dialog and show toast
+      setIsFormOpen(false);
+      toast({
+        title: "Purchase Order Created",
+        description: `Purchase Order ${newPO.id} has been created successfully.`,
+      });
+    }, 1000);
   };
   
-  const handleExport = () => {
+  const handleExport = (): void => {
     toast({
       title: "Export Started",
-      description: "Purchase Order data is being exported to Excel.",
+      description: "Your data is being exported...",
     });
+    // Implementation would go here
   };
   
-  const handlePrint = () => {
+  const handlePrint = (): void => {
     toast({
-      title: "Print Initiated",
-      description: "Purchase Order data is being prepared for printing.",
+      title: "Print Started",
+      description: "Preparing document for printing...",
     });
+    // Implementation would go here
   };
   
   return (

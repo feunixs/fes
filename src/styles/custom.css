@@ -1,0 +1,57 @@
+/* Custom styles for fixing contrast and dashboard styling */
+
+/* Improve text color in sidebar menu */
+.master-data span,
+.purchased span,
+.transaction span,
+.report span,
+.user-access span,
+.settings span,
+[class*="text-sidebar-foreground"],
+[class*="text-muted-foreground"],
+.sidebar-item span {
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+
+/* Fix text color in submenu items */
+.sidebar-item a,
+.sidebar-item button,
+.sidebar-item div {
+  color: #333 !important;
+}
+
+/* Strengthen hover color on menu items */
+.sidebar-item a:hover,
+.sidebar-item button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #000 !important;
+}
+
+/* Override for Indonesian currency format */
+.currency-display {
+  font-weight: 600;
+}
+
+/* Improve contrast in recent activities */
+.activity-item {
+  color: #333 !important;
+}
+
+/* Strengthen contrast on card titles */
+.card-title {
+  color: #333 !important;
+  font-weight: 600 !important;
+}
+
+/* Fix contrast on Quick Menu */
+.menu-cepat button {
+  color: #333 !important;
+}
+
+/* Ensure Rupiah currency format follows Indonesian standard */
+/* Using 'Rp' as symbol and local units: ribu, juta, miliar, triliun */
+.currency-display {
+  font-weight: 600 !important;
+  color: #333 !important;
+}

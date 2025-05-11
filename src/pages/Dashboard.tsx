@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import useParallaxTransition from "@/hooks/useParallaxTransition";
-import "../components/ui/parallax-transition.css";
 
 const Dashboard = () => {
   const { toast } = useToast();

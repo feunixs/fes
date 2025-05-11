@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import useParallaxTransition from "@/hooks/useParallaxTransition";
-import "../components/ui/parallax-transition.css";
-import "../components/ui/login-background.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");

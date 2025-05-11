@@ -1,0 +1,177 @@
+/* Consolidated main CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
+/* These must come before any other CSS statements */
+@import './animations.css';
+@import './parallax.css';
+@import './login.css';
+@import './custom.css';
+
+/* Tailwind CSS directives must come after all imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Font families */
+    --font-heading: 'DM Serif Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Elegant warm background and text colors */
+    --background: 220 25% 97%;
+    --foreground: 225 25% 20%;
+
+    /* Card styling with gradient effect */
+    --card: 0 0% 100%;
+    --card-foreground: 225 25% 20%;
+    --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+
+    /* Popover styling */
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 25% 20%;
+
+    /* Rich navy blue as primary color - slightly adjusted for more elegance */
+    --primary: 215 65% 23%;
+    --primary-foreground: 210 40% 98%;
+    
+    /* Success color for positive trends and indicators */
+    --success: 145 55% 35%;
+    --success-foreground: 210 40% 98%;
+    
+    /* Warning color for alerts and cautions */
+    --warning: 40 95% 50%;
+    --warning-foreground: 20 10% 15%;
+    
+    /* Info color for notifications and help */
+    --info: 200 75% 45%;
+    --info-foreground: 210 40% 98%;
+    
+    /* Teal accent color */
+    --accent: 175 65% 40%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Soft complementary secondary color */
+    --secondary: 240 15% 60%;
+    --secondary-foreground: 210 20% 98%;
+    
+    /* Muted background for subtle UI elements */
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 15% 40%;
+
+    /* Destructive color for errors and critical actions */
+    --destructive: 0 85% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Border colors */
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 215 65% 23%;
+
+    /* Sidebar theming */
+    --sidebar-background: 215 65% 23%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-muted: 215 35% 40%;
+    --sidebar-active: 175 65% 40%;
+
+    /* Topnav theming */
+    --topnav-background: 0 0% 100%;
+    --topnav-foreground: 225 25% 20%;
+    --topnav-border: 220 15% 90%;
+    --topnav-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+
+    /* Radius scale */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 220 25% 9%;
+    --foreground: 220 15% 90%;
+
+    --card: 220 25% 12%;
+    --card-foreground: 220 15% 90%;
+
+    --popover: 220 25% 12%;
+    --popover-foreground: 220 15% 90%;
+
+    --primary: 215 65% 40%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 240 15% 40%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 220 25% 15%;
+    --muted-foreground: 220 15% 60%;
+
+    --accent: 175 65% 35%;
+    --accent-foreground: 210 40% 98%;
+
+    --success: 145 55% 35%;
+    --success-foreground: 210 40% 98%;
+    
+    --warning: 40 95% 45%;
+    --warning-foreground: 20 10% 95%;
+    
+    --info: 200 75% 40%;
+    --info-foreground: 210 40% 98%;
+
+    --destructive: 0 85% 45%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 25% 16%;
+    --input: 220 25% 16%;
+    --ring: 215 65% 40%;
+
+    /* Dark mode sidebar theming */
+    --sidebar-background: 220 25% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-muted: 215 35% 60%;
+    --sidebar-active: 175 65% 50%;
+
+    /* Dark mode topnav theming */
+    --topnav-background: 220 25% 12%;
+    --topnav-foreground: 220 15% 90%;
+    --topnav-border: 220 25% 15%;
+    --topnav-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Reset some browser defaults */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* App container styling */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Page transition animations */
+.page-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}

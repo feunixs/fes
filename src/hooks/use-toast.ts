@@ -170,6 +170,11 @@ function toast({ ...props }: Toast) {
 
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
+  
+  // Type-safe updater function for state
+  const updateState = React.useCallback((newState: React.SetStateAction<State>) => {
+    setState(newState)
+  }, [])
 
   React.useEffect(() => {
     listeners.push(setState)

@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { Customer, CustomerFormData, FormField } from "@/types/models";
+import { validateForm, validationSchemas } from "@/lib/validators";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import DataTable from "@/components/ui/data-table/DataTable";
 import DataForm from "@/components/ui/data-form/DataForm";
@@ -23,7 +25,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 // Mock data for customers
-const mockCustomers = [
+const mockCustomers: Customer[] = [
   {
     id: 1,
     name: "PT. Global Solutions",
@@ -97,7 +99,7 @@ const columns = [
 ];
 
 // Form fields definition
-const formFields = [
+const formFields: FormField[] = [
   {
     name: "name",
     label: "Company Name",
@@ -147,10 +149,10 @@ const formFields = [
 
 const CustomersPage = () => {
   const { toast } = useToast();
-  const [customers, setCustomers] = useState(mockCustomers);
+  const [customers, setCustomers] = useState<Customer[]>(mockCustomers);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -160,13 +162,13 @@ const CustomersPage = () => {
     setIsFormOpen(true);
   };
   
-  const handleEdit = (customer: any) => {
+  const handleEdit = (customer: Customer) => {
     setSelectedCustomer(customer);
     setIsEditing(true);
     setIsFormOpen(true);
   };
   
-  const handleDelete = (customer: any) => {
+  const handleDelete = (customer: Customer) => {
     setSelectedCustomer(customer);
     setIsDeleteDialogOpen(true);
   };
@@ -180,24 +182,59 @@ const CustomersPage = () => {
     });
   };
   
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: CustomerFormData) => {
+    // Validate form data
+    const validationResult = validateForm(data as unknown as Record<string, unknown>, validationSchemas.customer());
+    
+    if (!validationResult.isValid) {
+      toast({
+        title: "Validation Error",
+        description: "Please check the form for errors.",
+        variant: "destructive",
+      });
+      return;
+    }
     setIsLoading(true);
     
     // Simulate API call
     setTimeout(() => {
-      if (isEditing) {
+      if (isEditing && selectedCustomer) {
+        // Update existing customer
+        const updatedCustomer: Customer = {
+          ...selectedCustomer,
+          name: data.name,
+          address: data.address,
+          phoneNumber: data.phoneNumber,
+          email: data.email,
+          contactPerson: data.contactPerson,
+          status: data.status
+        };
+        
         setCustomers(
-          customers.map((c) =>
-            c.id === selectedCustomer.id ? { ...data, id: selectedCustomer.id } : c
+          customers.map((c) => 
+            c.id === selectedCustomer.id ? updatedCustomer : c
           )
         );
+        
         toast({
           title: "Customer Updated",
           description: `${data.name} has been updated successfully.`,
         });
       } else {
+        // Add new customer
         const newId = Math.max(...customers.map((c) => c.id)) + 1;
-        setCustomers([...customers, { ...data, id: newId }]);
+        const newCustomer: Customer = {
+          id: newId,
+          name: data.name,
+          address: data.address,
+          phoneNumber: data.phoneNumber,
+          email: data.email,
+          contactPerson: data.contactPerson,
+          status: data.status
+        };
+        
+        setCustomers([...customers, newCustomer]);
+        
         toast({
           title: "Customer Added",
           description: `${data.name} has been added successfully.`,
