@@ -16,43 +16,34 @@
     --font-heading: 'DM Serif Display', serif;
     --font-body: 'Inter', sans-serif;
     
-    /* Enhanced color palette */
-    --background: 220 25% 97%;
-    --foreground: 225 25% 20%;
-    
-    /* Card styling with refined shadows */
-    --card: 0 0% 100%;
-    --card-foreground: 225 25% 20%;
-    --card-hover-shadow: 
-      0 10px 15px -3px rgba(0, 0, 0, 0.08),
-      0 4px 6px -2px rgba(0, 0, 0, 0.04);
-
-    /* Refined primary colors */
-    --primary: 215 65% 23%;
-    --primary-foreground: 210 40% 98%;
-    
-    /* Status colors with improved contrast */
-    --success: 145 55% 35%;
-    --success-foreground: 210 40% 98%;
-    --warning: 40 95% 50%;
-    --warning-foreground: 20 10% 15%;
-    --info: 200 75% 45%;
-    --info-foreground: 210 40% 98%;
-    --destructive: 0 85% 50%;
-    --destructive-foreground: 210 40% 98%;
+    /* Primary colors */
+    --primary: 221 89 93;      /* #2563eb */
+    --primary-dark: 224 69 31;  /* #1e40af */
+    --primary-light: 222 96 98; /* #60a5fa */
     
     /* Accent colors */
-    --accent: 175 65% 40%;
-    --accent-foreground: 210 40% 98%;
-    --secondary: 240 15% 60%;
-    --secondary-foreground: 210 20% 98%;
+    --accent: 173 58 53;       /* #0d9488 */
+    --accent-alt: 246 70 90;   /* #4f46e5 */
     
-    /* Muted tones */
-    --muted: 220 20% 94%;
-    --muted-foreground: 220 15% 40%;
+    /* Status colors */
+    --success: 151 59 41;      /* #059669 */
+    --warning: 43 95 47;       /* #eab308 */
+    --error: 0 85 50;          /* #dc2626 */
+    --info: 200 97 91;         /* #0ea5e9 */
+    
+    /* Neutral colors */
+    --background: 210 40 98;    /* #f8fafc */
+    --card: 210 33 97;         /* #f1f5f9 */
+    --border: 217 19 94;       /* #e2e8f0 */
+    --foreground: 215 30 33;   /* #334155 */
+    --heading: 222 47 16;      /* #0f172a */
 
+    /* Component colors */
+    --primary-foreground: 210 40 98;
+    --accent-foreground: 210 40 98;
+    --card-foreground: var(--foreground);
+    
     /* Border and input styling */
-    --border: 220 15% 85%;
     --input: 220 15% 85%;
     --ring: 215 65% 23%;
 
@@ -75,15 +66,13 @@
     --z-tooltip: 1060;
   }
 
-  /* Enhanced dark mode */
   .dark {
-    --background: 220 25% 9%;
-    --foreground: 220 15% 90%;
-    --card: 220 25% 12%;
-    --card-foreground: 220 15% 90%;
-    --border: 220 25% 16%;
-    --primary: 215 65% 40%;
-    --ring: 215 65% 40%;
+    --background: 222 47 16;
+    --foreground: 210 40 98;
+    --card: 215 25 12;
+    --border: 215 25 20;
+    --primary: 221 89 93;
+    --ring: 221 89 93;
   }
 }
 
